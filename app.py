@@ -4,7 +4,8 @@ from flask import Flask, request, render_template
 import pickle
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
+
+model = pickle.load(open('breast_cancer_detector.pickle', 'rb'))
 
 @app.route('/')
 def home():
@@ -29,9 +30,9 @@ def predict():
     output = model.predict(df)
         
     if output == 0:
-        res_val = "** breast cancer **"
+        res_val = "** Breast Cancer **"
     else:
-        res_val = "no breast cancer"
+        res_val = "No Breast Cancer"
         
 
     return render_template('index.html', prediction_text='Patient has {}'.format(res_val))
